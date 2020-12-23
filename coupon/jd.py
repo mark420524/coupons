@@ -17,8 +17,6 @@ import json
 from untils.jd_api import JdApiClient
 from untils.suo_im import Suo_mi
 from untils.common import save_pic, del_pic
-import itchat
-from chat.itchatHelper import set_system_notice
 
 def jingfen_query(group_name:str, group_material_id:str, app_key:str, secret_key:str, site_id:str, suo_mi_token:str):
     ''' 方法效率不咋地，不管了
@@ -40,7 +38,6 @@ def jingfen_query(group_name:str, group_material_id:str, app_key:str, secret_key
                                  }})
     except Exception as e:
         print(e)
-        set_system_notice(f'''page_no: {page_no},\npage_size:{page_size}\n, eliteId:{group_material_id}\n发现问题''')
         jingfen_query(group_name, group_material_id, app_key, secret_key, site_id, suo_mi_token)
 
     # pprint.pprint(json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result']))
@@ -104,29 +101,6 @@ def jingfen_query(group_name:str, group_material_id:str, app_key:str, secret_key
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【京东】{sku_name}\n——————————\n 【爆款价】¥{lowest_price}\n抢购地址：{duanzhi}'''
 
-        ## 获取 images
-        image_list = []
-        images_count = 0
-        for image in data['imageInfo']['imageList']:
-            images_count += 1
-            if images_count > 3: ## 3个以上图片就不发了
-                pass
-            else:
-                image_url = image['url']
-                filename = save_pic(image_url, sku_id)
-                groups = itchat.search_chatrooms(name=f'''{group_name}''')
-                for room in groups:
-                    room_name = room['UserName']
-                    time.sleep(random.randint(5,10))
-                    itchat.send('@img@%s' % (f'''{filename}'''), room_name)
-                del_pic(filename)
-                # print(image_url)
-
-        groups = itchat.search_chatrooms(name=f'''{group_name}''')
-        for room in groups:
-            room_name = room['UserName']
-            time.sleep(random.randint(3, 5))
-            itchat.send(share_text, room_name)
 
 def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi_token):
     '''

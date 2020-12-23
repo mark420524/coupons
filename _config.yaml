@@ -75,7 +75,7 @@ group_helper_conf:
 #--------------------------- 推广客设置 --------------------------start
 
 taobao:
-  is_open: True
+  is_open: False
   app_key: ''
   app_secret: ''
   adzone_id: ''
@@ -96,7 +96,7 @@ jingdong:
     - {group_name: '京东内部优惠群-9.9专区①', group_material_id: '10', minute: '10,40', hour: '7-23'}
 
 pinduoduo:
-  is_open: True
+  is_open: False
   app_key: ''
   app_secret: ''
   p_id: ''

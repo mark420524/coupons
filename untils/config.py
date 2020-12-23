@@ -23,14 +23,14 @@ def get_yaml():
     解析 yaml
     :return: s  字典
     """
-    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '_config.yaml')
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.yaml')
     try:
         with open(path, 'r', encoding='utf-8') as file:
             config = yaml.safe_load(file)
         return config
     except Exception as exception:
         print(str(exception))
-        print('你的 _config.yaml 文件配置出错...')
+        print('你的 config.yaml 文件配置出错...')
     return None
 
 
