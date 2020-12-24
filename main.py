@@ -4,7 +4,7 @@
 
 """
 
-from untils import config
+from utils import config
 
 def run():
     conf = config.init()
