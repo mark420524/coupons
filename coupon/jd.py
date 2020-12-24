@@ -18,7 +18,7 @@ from untils.jd_api import JdApiClient
 from untils.suo_im import Suo_mi
 from untils.common import save_pic, del_pic
 
-def jingfen_query(group_name:str, group_material_id:str, app_key:str, secret_key:str, site_id:str, suo_mi_token:str):
+def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:str, suo_mi_token:str):
     ''' 方法效率不咋地，不管了
     https://union.jd.com/openplatform/api/10421
     :return:
@@ -38,7 +38,7 @@ def jingfen_query(group_name:str, group_material_id:str, app_key:str, secret_key
                                  }})
     except Exception as e:
         print(e)
-        jingfen_query(group_name, group_material_id, app_key, secret_key, site_id, suo_mi_token)
+        jingfen_query( group_material_id, app_key, secret_key, site_id, suo_mi_token)
 
     # pprint.pprint(json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result']))
     for data in json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result'])['data']:
@@ -139,8 +139,9 @@ def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi
         x = material_url
     # 直接返回短址
     url = x
-    c = Suo_mi(app_key=suo_mi_token).get_short_url(url)
-    return c
+    print(url)
+    #c = Suo_mi(app_key=suo_mi_token).get_short_url(url)
+    return ''
 
 if __name__ == '__main__':
     pass
