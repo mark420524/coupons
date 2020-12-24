@@ -1,50 +1,31 @@
  [![Python 3.7](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/release/python-370/)
- [![itchat_vesion](https://img.shields.io/badge/Itchat-1.3.10-brightgreen.svg)](https://github.com/littlecodersh/ItChat)
  [![EverydayWechat](https://img.shields.io/badge/sfyc23/Powered%20By-EverydayWechat-brightgreen.svg)](https://github.com/sfyc23/EverydayWechat/)
  [![GitHub issues](https://img.shields.io/github/issues/why2lyj/youxiang.svg)](https://github.com/why2lyj/youxiang/issues)
  [![Page Views Count](https://badges.toozhao.com/badges/01EJD3TT6C1J7T283S3A3JZGE3/green.svg)](https://badges.toozhao.com/badges/01EJD3TT6C1J7T283S3A3JZGE3/green.svg)
  
 ## 项目背景
 
-无非就是想撸羊毛，自己又懒的一个一个找，一个一个发。已知目前的返佣app非常的多，比如：好省，蜜源，粉象生活，高佣联盟，芬香，花生日记，惠鲸等等。归根到底无非是利用淘宝、京东、拼多多、苏宁的开放平台做的。所以想到是否可以利用已有的开放平台来做一个属于自己的撸羊毛项目。
-
-其实说白了就是 ：
-1. 建立微信群 
-2. 向微信群里发送自己的推广链接和商品图片
-3. 剩下的尽人事听天命了
+接口获取联盟优惠券商品保存数据
 
 ## 功能说明
 
-项目主要参考 [EverydayWechat](https://github.com/sfyc23/EverydayWechat)
 
--  支持对多个微信好友自动回复。  （保留原[EverydayWechat](https://github.com/sfyc23/EverydayWechat)功能，自动回复仅保留**智能闲聊（腾讯）**）
--  群助手功能，仅保留进群自动回复及@时自动回复功能。
 -  淘宝优惠券自动分发。 
-   > 创建定时任务，通过api获取淘宝推广客的优惠信息，发送到群聊。
+   > 创建定时任务，通过api获取淘宝推广客的优惠信息。
 -  京东优惠券自动分发。
-   > 创建定时任务，通过api获取京东联盟的优惠信息，发送到群聊。
+   > 创建定时任务，通过api获取京东联盟的优惠信息。
 -  拼多多优惠券自动分发。
-   > 创建定时任务，通过api获取多多进宝（多宝客）的优惠信息，发送到群聊。
+   > 创建定时任务，通过api获取多多进宝（多宝客）的优惠信息。
 -  苏宁易购优惠券自动分发。
-   > 创建定时任务，通过官方sdk获取苏宁联盟（苏宁推客）的优惠信息，发送到群聊。
+   > 创建定时任务，通过官方sdk获取苏宁联盟（苏宁推客）的优惠信息。
 -  唯品会优惠券自动分发（未完成）。
    > 创建定时任务，通过官方sdk获取唯品会的优惠信息，发送到群聊。
    
-## 对于微信Web端无法登陆的小伙伴请注意
 
-由于使用的是Itchat框架，此框架仅支持还能用web版微信的人，如web版本微信已经无法使用，本项目无法继续操作。
-
-如果您需要制作自己的微信机器人，推荐使用`wechaty`，详情请访问：https://wechaty.js.org/ ，这是市面上唯一一家提供终身免费`token`服务的微信机器人供应商。
-
-其公司句子科技对于的贡献者会提供免费的`token`，对于开发级贡献者同时会提供专有服务器；如果懒，付费我也不拦着，付费`token`200/月/号。
-
-本项目已完成`python-wechaty`版本迁移。代码私有，不再公开。
-
-如有需要帮助，请主动扫描本页最后的二维码与作者联系。
 
 ## 配置信息
 
-仅介绍**推广客设置**，其余配置请参考[EverydayWechat](https://github.com/sfyc23/EverydayWechat)，不做多余赘述。
+仅介绍**推广客设置**，不做多余赘述。
 
 参数说明：
 
@@ -239,18 +220,9 @@ python main.py
 
 **禁止将本工具用于商业用途**，如产生法律纠纷与本人无关。  
 
-本项目已经完全迁移至非Web端版本（`python-wechaty`版本），后期仅维护bug，不再增添新的功能，还请各位小主知晓。
+
 
 ## Credits 致谢
 
-本项目受以下项目或文章启发，参考了其中一部分思路，向这些开发者表示感谢。  
-- [EverydayWechat](https://github.com/sfyc23/EverydayWechat)
 - [python 淘宝OPEN API 调用示例](https://www.jianshu.com/p/f9b5e3020789)
 
-## 最后最后最后还是建个群什么的做下交流。留个二维码。
-
-备注写【github】，否则不同过哦。
-![加不加随意](https://github.com/why2lyj/youxiang/blob/master/images/6050dfdc-dfef-43c0-94b8-33148f6f5bd8.jpg?raw=true)
-
-## 加个starchart，在此感谢您能够专心致志的读到这里，给项目点个赞吧~
- [![Stargazers over time](https://starchart.cc/why2lyj/youxiang.svg)](https://starchart.cc/why2lyj/youxiang)
