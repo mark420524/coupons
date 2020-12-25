@@ -24,7 +24,7 @@ def jd_job_task():
     suo_im = conf.get('suo_im')
     for chat_group in chat_groups:
         kwargs={'group_material_id': chat_group['group_material_id'],
-                'app_key': app_key, 'secret_key': app_secret, 'site_id': site_id, 'suo_mi_token': suo_im,'page_no':1,'page_size':1}
+                'app_key': app_key, 'secret_key': app_secret, 'site_id': site_id, 'suo_mi_token': suo_im,'page_no':1, 'page_size': 1}
         jingfen_query(**kwargs)
 
 def run():
