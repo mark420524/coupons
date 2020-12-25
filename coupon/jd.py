@@ -14,19 +14,17 @@ c)      如开通后2个自然月内如无返回数据，或月订单量达不�
 import random
 import time
 import json
-from untils.jd_api import JdApiClient
-from untils.suo_im import Suo_mi
-from untils.common import save_pic, del_pic
+from utils.jd_api import JdApiClient
+from utils.suo_im import Suo_mi
+from utils.common import save_pic, del_pic
 
-def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:str, suo_mi_token:str):
+def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:str, suo_mi_token:str,page_no:int,page_size:int):
     ''' 方法效率不咋地，不管了
     https://union.jd.com/openplatform/api/10421
     :return:
     '''
     info = []
     try:
-        page_no = str(random.randint(1, 25))
-        page_size = str(random.randint(3, 5))  # 不建议发很多，图片接口会跪
 
         client = JdApiClient(app_key=app_key, secret_key=secret_key)
         resp = client.call("jd.union.open.goods.jingfen.query",
