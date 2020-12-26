@@ -6,10 +6,6 @@
 
 from utils import config
 from coupon.jd import jingfen_query
-from flask import request
-
-from flask import Flask
-app = Flask(__name__)
 conf = config.init()
 def jd_job_task(page_no, page_size):
 
@@ -29,13 +25,10 @@ def jd_job_task(page_no, page_size):
                 'app_key': app_key, 'secret_key': app_secret, 'site_id': site_id, 'suo_mi_token': suo_im,'page_no':page_no, 'page_size': page_size}
         jingfen_query(**kwargs)
 
-@app.route('/goods/<goods_type>', methods=['GET', 'POST'])
 def run(goods_type):
     if not conf:  # 如果 conf，表示配置文件出错。
         print('程序中止...')
         return 'error conf'
-    page_no=request.form['page']
-    page_size=request.form['size']
     print(page_no)
     print(page_size)
     #jd_job_task()

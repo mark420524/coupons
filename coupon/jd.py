@@ -45,6 +45,8 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
         material_url = f'''http://{(data['materialUrl'])}''' ## 商品url
 
         couponInfos = data['couponInfo'] ## 优惠券列表
+        imageInfo = data['imageInfo']
+        imageObj = imageInfo['imageList'][0]
         # 查找最优优惠券
         coupon_link = ""
         discount = 0
@@ -98,7 +100,7 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
                 # 得到短址
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【京东】{sku_name}\n——————————\n 【爆款价】¥{lowest_price}\n抢购地址：{duanzhi}'''
-        item_info = {price:price,lowest_price:lowest_price,duanzhi:duanzhi,share_text:share_text}
+        item_info = {'price':price,'lowest_price':lowest_price,'duanzhi':duanzhi,'share_text':share_text, 'imageUrl':imageObj['url']}
         info.append(item_info)
     return info
 
@@ -110,12 +112,12 @@ def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi
     :param suo_mi_token: suo_mi网站的token
     :return: string ，返回一个suo_mi的短址
     '''
-    print(f'''{app_key}''')
-    print(f'''{secret_key}''')
-    print(f'''{material_url}''')
-    print(f'''{coupon_url}''')
-    print(f'''{site_id}''')
-    print(f'''{suo_mi_token}''')
+    #rint(f'''{app_key}''')
+    ##print(f'''{secret_key}''')
+    #print(f'''{material_url}''')
+    #print(f'''{coupon_url}''')
+    #print(f'''{site_id}''')
+    #print(f'''{suo_mi_token}''')
     client = JdApiClient(app_key=app_key, secret_key=secret_key)
     if coupon_url == "":
         resp = client.call("jd.union.open.promotion.common.get",

@@ -5,36 +5,28 @@ taobao:
   app_key: ''
   app_secret: ''
   adzone_id: ''
-  chat_groups:
-    - {group_name: '', group_material_id: '3756,28026,27446,13366,3786', minute: '15,45', hour: '7-23'}
-    - {group_name: '', group_material_id: '4093', minute: '20', hour: '7-23'}
-    - {group_name: '', group_material_id: '19810', minute: '30', hour: '7-23'}
-    - {group_name: '', group_material_id: '3767,27448,13367,3788', minute: '10,40', hour: '7-23'}
-    - {group_name: '', group_material_id: '13375,3761,27451,3791', minute: '10,40', hour: '7-23'}
-
+  group_material_id: '3756,28026,27446,13366,3786,3767,27448,13367,3788'
+  
 jingdong:
   is_open: True
   app_key: ''
   app_secret: ''
   site_id: ''
   suo_im: ''
-  chat_groups:
-    - {group_name: '', group_material_id: '10', minute: '10,40', hour: '7-23'}
-
+  group_material_id: '10'
+  
 pinduoduo:
   is_open: False
   app_key: ''
   app_secret: ''
   p_id: ''
-  chat_groups:
-    - {group_name: '', group_material_id: '1,2', minute: '0,30', hour: '7-23'}
-
+  group_material_id: '1,2'
+  
 suning:
   is_open: False
   app_key: ''
   app_secret: ''
   ad_book_id: ''
-  chat_groups:
-    - {group_name: '', group_material_id: '2179', minute: '5,35', hour: '7-23'}
+  group_material_id: '2179'
 #--------------------------- 推广客设置  --------------------------end
 
