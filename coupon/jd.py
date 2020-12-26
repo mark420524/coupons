@@ -93,11 +93,14 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【拼购】{sku_name}\n——————————\n  【原价】¥{price}\n 【拼购价】¥{lowest_price}\n抢购地址：{duanzhi}'''
             else:
-                lowest_price = data['priceInfo']['price']
+                price = data['priceInfo']['price']
+                lowest_price = price
                 # 得到短址
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【京东】{sku_name}\n——————————\n 【爆款价】¥{lowest_price}\n抢购地址：{duanzhi}'''
-
+        item_info = {price:price,lowest_price:lowest_price,duanzhi:duanzhi,share_text:share_text}
+        info.append(item_info)
+    return info
 
 def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi_token):
     '''
@@ -136,9 +139,9 @@ def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi
         x = material_url
     # 直接返回短址
     url = x
-    print(url)
+    #print(url)
     #c = Suo_mi(app_key=suo_mi_token).get_short_url(url)
-    return ''
+    return url
 
 if __name__ == '__main__':
     pass

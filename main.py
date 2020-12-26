@@ -6,10 +6,12 @@
 
 from utils import config
 from coupon.jd import jingfen_query
+from flask import request
 
-
-
-def jd_job_task():
+from flask import Flask
+app = Flask(__name__)
+conf = config.init()
+def jd_job_task(page_no, page_size):
 
     conf = config.get_yaml()
     conf = conf.get('jingdong')
@@ -24,15 +26,20 @@ def jd_job_task():
     suo_im = conf.get('suo_im')
     for chat_group in chat_groups:
         kwargs={'group_material_id': chat_group['group_material_id'],
-                'app_key': app_key, 'secret_key': app_secret, 'site_id': site_id, 'suo_mi_token': suo_im,'page_no':1, 'page_size': 1}
+                'app_key': app_key, 'secret_key': app_secret, 'site_id': site_id, 'suo_mi_token': suo_im,'page_no':page_no, 'page_size': page_size}
         jingfen_query(**kwargs)
 
-def run():
-    conf = config.init()
+@app.route('/goods/<goods_type>', methods=['GET', 'POST'])
+def run(goods_type):
     if not conf:  # 如果 conf，表示配置文件出错。
         print('程序中止...')
-        return
-    jd_job_task()
+        return 'error conf'
+    page_no=request.form['page']
+    page_size=request.form['size']
+    print(page_no)
+    print(page_size)
+    #jd_job_task()
+    return 'ok'
 
 if __name__ == '__main__':
-    run()
+    run(1)
