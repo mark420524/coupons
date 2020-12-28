@@ -37,7 +37,6 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
     except Exception as e:
         print(e)
         jingfen_query( group_material_id, app_key, secret_key, site_id, suo_mi_token)
-
     # pprint.pprint(json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result']))
     for data in json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result'])['data']:
         print(data)
@@ -46,6 +45,8 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
         material_url = f'''http://{(data['materialUrl'])}''' ## 商品url
 
         couponInfos = data['couponInfo'] ## 优惠券列表
+        imageInfo = data['imageInfo']
+        imageObj = imageInfo['imageList'][0]
         # 查找最优优惠券
         coupon_link = ""
         discount = 0
@@ -69,16 +70,19 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
                 lowest_price = data['priceInfo']['lowestCouponPrice'] # 秒杀价
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【秒杀】{sku_name}\n——————————\n  【原价】¥{price}\n 【券后秒杀价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+                short_desc = f'''【秒杀】\n——————————\n  【原价】¥{price}\n 【券后秒杀价】¥{lowest_price}\n抢购地址：{duanzhi}'''
             elif lowest_price_type == 2: # 拼购
                 price = data['priceInfo']['price']  # 原价
                 lowest_price = data['priceInfo']['lowestCouponPrice']  # 用券拼购
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【拼购】{sku_name}\n——————————\n  【原价】¥{price}\n 【券后拼购价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+                short_desc = f'''【拼购】\n——————————\n  【原价】¥{price}\n 【券后拼购价】¥{lowest_price}\n抢购地址：{duanzhi}'''
             else:
                 price = data['priceInfo']['price'] ## 商品价格
                 lowest_price = data['priceInfo']['lowestCouponPrice']
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【京东】{sku_name}\n——————————\n  【爆款价】¥{price}\n 【用卷价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+                short_desc = f'''【京东】\n——————————\n  【爆款价】¥{price}\n 【用卷价】¥{lowest_price}\n抢购地址：{duanzhi}'''
 
 
         else: ## 如果没有券
@@ -87,18 +91,27 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
                 lowest_price = data['seckillInfo']['seckillPrice']  # 秒杀价
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【秒杀】{sku_name}\n——————————\n  【原价】¥{price}\n 【秒杀价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+                short_desc = f'''【秒杀】\n——————————\n  【原价】¥{price}\n 【秒杀价】¥{lowest_price}\n抢购地址：{duanzhi}'''
 
             elif lowest_price_type == 2:  # 拼购
                 price = data['priceInfo']['price']  # 原价
                 lowest_price = data['priceInfo']['lowestPrice']  # 用券拼购
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【拼购】{sku_name}\n——————————\n  【原价】¥{price}\n 【拼购价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+                short_desc = f'''【拼购】\n——————————\n  【原价】¥{price}\n 【拼购价】¥{lowest_price}\n抢购地址：{duanzhi}'''
             else:
-                lowest_price = data['priceInfo']['price']
+                price = data['priceInfo']['price']
+                lowest_price = price
                 # 得到短址
                 duanzhi = tb_share_text(app_key, secret_key, material_url, coupon_link, site_id, suo_mi_token)
                 share_text = f'''【京东】{sku_name}\n——————————\n 【爆款价】¥{lowest_price}\n抢购地址：{duanzhi}'''
-
+                short_desc = f'''【京东】\n——————————\n 【爆款价】¥{lowest_price}\n抢购地址：{duanzhi}'''
+        item_info = {
+        	'price':price,'lowest_price':lowest_price,
+        	'duanzhi':duanzhi,'short_desc':short_desc, 
+        	'imageUrl':imageObj['url'], 'sku_name':sku_name}
+        info.append(item_info)
+    return info
 
 def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi_token):
     '''
@@ -108,12 +121,12 @@ def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi
     :param suo_mi_token: suo_mi网站的token
     :return: string ，返回一个suo_mi的短址
     '''
-    print(f'''{app_key}''')
-    print(f'''{secret_key}''')
-    print(f'''{material_url}''')
-    print(f'''{coupon_url}''')
-    print(f'''{site_id}''')
-    print(f'''{suo_mi_token}''')
+    #rint(f'''{app_key}''')
+    ##print(f'''{secret_key}''')
+    #print(f'''{material_url}''')
+    #print(f'''{coupon_url}''')
+    #print(f'''{site_id}''')
+    #print(f'''{suo_mi_token}''')
     client = JdApiClient(app_key=app_key, secret_key=secret_key)
     if coupon_url == "":
         resp = client.call("jd.union.open.promotion.common.get",
@@ -137,9 +150,9 @@ def tb_share_text(app_key, secret_key, material_url, coupon_url, site_id, suo_mi
         x = material_url
     # 直接返回短址
     url = x
-    print(url)
+    #print(url)
     #c = Suo_mi(app_key=suo_mi_token).get_short_url(url)
-    return ''
+    return url
 
 if __name__ == '__main__':
     pass
