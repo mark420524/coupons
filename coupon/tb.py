@@ -1,7 +1,7 @@
 import time
 import json
 import random
-from utils.common import save_pic, del_pic
+
 from utils.tb_top_api import TbApiClient
 
 def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
@@ -31,7 +31,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
                 pict_url = "https:" + str(item['pict_url'])
                 title = item['title']
                 item_id = item['item_id']
-                filename = save_pic(pict_url, item_id)
+                
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             else:
@@ -42,15 +42,15 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
                 pict_url = "https:" + str(item['pict_url'])
                 zk_final_price = item['zk_final_price']
             item_info = {
-        	'price':price,'lowest_price':lowest_price,
-        	'duanzhi':coupon_share_url,'short_desc':short_desc, 
+        	'price':price,'lowest_price':'',
+        	'duanzhi':coupon_share_url,'short_desc':'', 
         	'imageUrl':pict_url, 'sku_name':title}
         info.append(item_info)
-    return info
+    
     except Exception as e:
         print(e)
         tb_share_text(group_name, material_id, app_key, app_secret, adzone_id)
-
+    return info
 
 if __name__ == '__main__':
     print(f'''tb function''')

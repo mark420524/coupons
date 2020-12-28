@@ -6,6 +6,7 @@
 
 from utils import config
 from coupon.jd import jingfen_query
+from coupon.tb import tb_share_text
 conf = config.init()
 def jd_job_task(page_no, page_size):
 
