@@ -15,6 +15,8 @@ import urllib
 import urllib.parse
 import urllib.request
 
+from utils.type import isString
+
 TB_API_ROOT = 'http://gw.api.taobao.com/router/rest?'
 
 class TbApiClient(object):
@@ -43,6 +45,8 @@ class TbApiClient(object):
         paramArr = dict(paramArr)
         for k, v in paramArr.items():
             if k != '' and v != '':
+                if not isString(v):
+                    v = str(v)
                 sign += k + v
         sign += self.secret_key
         sign = self.md5(sign).upper()
@@ -57,7 +61,7 @@ class TbApiClient(object):
         return strParam
 
     #高效API调用示例
-    def taobao_tbk_dg_optimus_material(self, material_id: str):
+    def taobao_tbk_dg_optimus_material(self, material_id: str, page_no, page_size):
         '''
         通用物料推荐，传入官方公布的物料id，可获取指定物料
         淘宝接口文档：
@@ -72,8 +76,8 @@ class TbApiClient(object):
         # 把分页现在这里随机有一定考虑
         # 原因是：1. 不同 material_id 得到的数据不一，且刷新周期不一
         #                    2. 微信发送不可太频繁，我仅是怕被封，决定取很小一部分数据
-        page_no = str(random.choices(['1','2','3','4', '5', '6', '7', '8', '9'])[0])
-        page_size = str(random.randint(8, 10))
+        #page_no = str(random.choices(['1','2','3','4', '5', '6', '7', '8', '9'])[0])
+        #page_size = str(random.randint(8, 10))
 
         postparm = {
                     'page_no': page_no,

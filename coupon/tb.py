@@ -4,7 +4,8 @@ import random
 
 from utils.tb_top_api import TbApiClient
 
-def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
+
+def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, page_size):
     '''
 
     :param group_name:
@@ -14,10 +15,10 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
     info = []
     try:
         material_id = str(random.choices(material_id.split(','))[0])
-        print(material_id)
+        #print(material_id)
         time.sleep(random.randint(1, 5))
         tb_client = TbApiClient(app_key=app_key, secret_key=app_secret, adzone_id=adzone_id)
-        res = tb_client.taobao_tbk_dg_optimus_material(material_id)
+        res = tb_client.taobao_tbk_dg_optimus_material(material_id, page_no, page_size)
         json_data = json.loads(res)['tbk_dg_optimus_material_response']['result_list']['map_data']
         count = 0
         for item in json_data:
@@ -31,7 +32,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
                 pict_url = "https:" + str(item['pict_url'])
                 title = item['title']
                 item_id = item['item_id']
-                
+                filename = save_pic(pict_url, item_id)
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             else:
@@ -40,6 +41,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
                 title = item['title']
                 item_id = item['item_id']
                 pict_url = "https:" + str(item['pict_url'])
+                filename = save_pic(pict_url, item_id)
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             item_info = {
@@ -49,8 +51,9 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id):
         info.append(item_info)
     
     except Exception as e:
+        print('1111111111111111111111111111111111111111111')
         print(e)
-        tb_share_text(group_name, material_id, app_key, app_secret, adzone_id)
+        #tb_share_text(material_id, app_key, app_secret, adzone_id, page_no, page_size)
     return info
 
 if __name__ == '__main__':
