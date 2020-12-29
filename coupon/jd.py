@@ -36,7 +36,7 @@ def jingfen_query( group_material_id:str, app_key:str, secret_key:str, site_id:s
                                  }})
     except Exception as e:
         print(e)
-        jingfen_query( group_material_id, app_key, secret_key, site_id, suo_mi_token)
+        #jingfen_query( group_material_id, app_key, secret_key, site_id, suo_mi_token)
     # pprint.pprint(json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result']))
     for data in json.loads(resp.json()['jd_union_open_goods_jingfen_query_response']['result'])['data']:
         print(data)
