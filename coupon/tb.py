@@ -51,7 +51,6 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
         info.append(item_info)
     
     except Exception as e:
-        print('1111111111111111111111111111111111111111111')
         print(e)
         #tb_share_text(material_id, app_key, app_secret, adzone_id, page_no, page_size)
     return info
