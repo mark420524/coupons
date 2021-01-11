@@ -22,7 +22,7 @@ class GoodsHandler(tornado.web.RequestHandler):
             c = 0
          
         if c == GoodsEnum.JD:
-            info = self.get_jd()
+            info = self.get_jd(page_no, page_size)
         elif c == GoodsEnum.PDD:
             info = []
             print('pdd')
