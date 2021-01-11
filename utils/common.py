@@ -9,7 +9,11 @@ import os
 import urllib.request
 import datetime
 import sys
+from utils import config
 
+conf = config.init()
+conf = config.get_yaml()
+conf = conf.get('image')
 __all__ = [
     'FILEHELPER_MARK', 'FILEHELPER',
     'is_json', 'md5_encode', '']
@@ -49,18 +53,21 @@ def _progress(block_num, block_size, total_size):
                      float(block_num * block_size) / float(total_size) * 100.0))
     sys.stdout.flush()
 
-def save_pic(img_url, item_id):
+def save_pic(img_url, item_id, folder):
     '''
     :param img_url: 图片url
     :param item_id:  物料id，仅限用于图片命名
     :return: filename str, 返回一个图片名称，用来定位删除的。
     '''
+    download_path = conf.get('download_path')
+    print(download_path)
     try:
         file_suffix = os.path.splitext(img_url)[1]
         # print(file_suffix)
         # 拼接图片名（包含路径）
         filename = f'''tb_{datetime.datetime.now().strftime("%y%m%d-%H%M%S")}_{item_id}{file_suffix}'''
-        # print(filename)
+        path_file = os.path.join(download_path,folder,filename)
+        print(path_file)
         # 下载图片，并保存到文件夹中
         urllib.request.urlretrieve(img_url, filename=filename)
         print(f'''图片下载成功：{filename}''')

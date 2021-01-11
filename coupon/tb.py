@@ -3,7 +3,7 @@ import json
 import random
 
 from utils.tb_top_api import TbApiClient
-
+from utils.common import save_pic
 
 def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, page_size):
     '''
@@ -45,7 +45,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             item_info = {
-        	'price':price,'lowest_price':'',
+        	'price':zk_final_price,'lowest_price':'',
         	'duanzhi':coupon_share_url,'short_desc':text, 
         	'imageUrl':pict_url, 'sku_name':title}
         info.append(item_info)

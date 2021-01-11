@@ -57,7 +57,9 @@ class TbApiClient(object):
         strParam = ''
         for k, v in paramArr.items():
             if k != '' and v != '':
-                strParam += k + '=' + urllib.parse.quote_plus(v) + '&'
+                if not isString(v):
+                    v = str(v)
+                strParam += k + '=' + urllib.parse.quote_plus(v.encode('utf-8')) + '&'
         return strParam
 
     #高效API调用示例
