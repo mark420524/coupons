@@ -49,7 +49,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
         	'price':zk_final_price,'lowest_price':'',
         	'duanzhi':coupon_share_url,'short_desc':text, 
         	'imageUrl':pict_url, 'sku_name':title}
-        info.append(item_info)
+            info.append(item_info)
     
     except Exception as e:
         print(e)

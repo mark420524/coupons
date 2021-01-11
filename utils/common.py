@@ -60,17 +60,17 @@ def save_pic(img_url, item_id, folder):
     :return: filename str, 返回一个图片名称，用来定位删除的。
     '''
     download_path = conf.get('download_path')
-    print(download_path)
+    #print(download_path)
     try:
         file_suffix = os.path.splitext(img_url)[1]
         # print(file_suffix)
         # 拼接图片名（包含路径）
         filename = f'''tb_{datetime.datetime.now().strftime("%y%m%d-%H%M%S")}_{item_id}{file_suffix}'''
         path_file = os.path.join(download_path,folder,filename)
-        print(path_file)
+        #print(path_file)
         # 下载图片，并保存到文件夹中
         urllib.request.urlretrieve(img_url, filename=path_file)
-        print(f'''图片下载成功：{filename}''')
+        #print(f'''图片下载成功：{filename}''')
         return filename
     except IOError as e:
         print(e)
