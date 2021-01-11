@@ -69,7 +69,7 @@ def save_pic(img_url, item_id, folder):
         path_file = os.path.join(download_path,folder,filename)
         print(path_file)
         # 下载图片，并保存到文件夹中
-        urllib.request.urlretrieve(img_url, filename=filename)
+        urllib.request.urlretrieve(img_url, filename=path_file)
         print(f'''图片下载成功：{filename}''')
         return filename
     except IOError as e:

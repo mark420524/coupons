@@ -21,6 +21,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
         res = tb_client.taobao_tbk_dg_optimus_material(material_id, page_no, page_size)
         json_data = json.loads(res)['tbk_dg_optimus_material_response']['result_list']['map_data']
         count = 0
+        folder = 'taobao'
         for item in json_data:
             count += 1
             coupon_amount = 0
@@ -32,7 +33,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
                 pict_url = "https:" + str(item['pict_url'])
                 title = item['title']
                 item_id = item['item_id']
-                filename = save_pic(pict_url, item_id)
+                filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             else:
@@ -41,7 +42,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
                 title = item['title']
                 item_id = item['item_id']
                 pict_url = "https:" + str(item['pict_url'])
-                filename = save_pic(pict_url, item_id)
+                filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             item_info = {

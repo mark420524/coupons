@@ -32,5 +32,5 @@ suning:
 
 #---------图片配置----start
 image:
-  download_path: E:\\images\\
+  download_path: E:\images\
 #---------图片配置----end
