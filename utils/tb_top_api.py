@@ -101,7 +101,7 @@ class TbApiClient(object):
         strParam = self.createStrParam(paramArr)
         strParam += 'sign=' + sign
         url = TB_API_ROOT + strParam
-        print(url)
+        #print(url)
         res = urllib.request.urlopen(url).read()
         return res
 
@@ -153,3 +153,35 @@ class TbApiClient(object):
         response = urllib.request.urlopen(request)
         data = response.read()
         return self.taobao_tbk_tpwd_create(json.loads(data)['data']['content'], json.loads(data)['data']['url'])
+    
+    def taobao_tbk_material_optional(self, material_id: str,q, goods_sort, goods_platform, page_no, page_size):
+        '''
+
+        '''
+
+        postparm = {
+                    'page_no': page_no,
+                    'page_size': page_size,
+                    'adzone_id': self.adzone_id,
+                    'sort': goods_sort,
+                    'q': q,
+                    'material_id': material_id,
+                    'platform': goods_platform,
+                    'method': 'taobao.tbk.dg.material.optional'
+                    }
+        # 公共参数，一般不需要修改
+        paramArr = {'app_key': self.app_key,
+                    'v': '2.0',
+                    'sign_method': 'md5',
+                    'format': 'json',
+                    'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
+                    }
+
+        paramArr = {**paramArr, **postparm}
+        sign = self.createSign(paramArr)
+        strParam = self.createStrParam(paramArr)
+        strParam += 'sign=' + sign
+        url = TB_API_ROOT + strParam
+        res = urllib.request.urlopen(url).read()
+        search_goods = json.loads(res)['tbk_dg_material_optional_response']['result_list']['map_data']
+        return search_goods
