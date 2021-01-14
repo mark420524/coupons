@@ -35,6 +35,7 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
                 item_id = item['item_id']
                 filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
+                reserve_price = item['reserve_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             else:
                 click_url = "https:" + item['click_url']
@@ -44,9 +45,10 @@ def tb_share_text( material_id: str, app_key, app_secret, adzone_id, page_no, pa
                 pict_url = "https:" + str(item['pict_url'])
                 filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
+                reserve_price = item['reserve_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             item_info = {
-        	'price':zk_final_price,'lowest_price':'',
+        	'price':reserve_price,'lowest_price':zk_final_price,
         	'duanzhi':coupon_share_url,'short_desc':text, 
         	'imageUrl':pict_url, 'sku_name':title}
             info.append(item_info)
@@ -73,6 +75,7 @@ def tb_search_goods( material_id: str, app_key, app_secret, adzone_id, page_no, 
         tb_client = TbApiClient(app_key=app_key, secret_key=app_secret, adzone_id=adzone_id)
         res = tb_client.taobao_tbk_material_optional(material_id, q, goods_sort, goods_platform, page_no, page_size)
         json_data = res
+        
         count = 0
         folder = 'taobao'
         for item in json_data:
@@ -83,23 +86,25 @@ def tb_search_goods( material_id: str, app_key, app_secret, adzone_id, page_no, 
             if str(item).find("coupon_share_url") > -1:
                 coupon_share_url = "https:" + item['coupon_share_url']
                 coupon_amount = item['coupon_amount']
-                pict_url = "https:" + str(item['pict_url'])
+                pict_url =  item['pict_url'] 
                 title = item['title']
                 item_id = item['item_id']
                 filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
+                reserve_price = item['reserve_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             else:
-                click_url = "https:" + item['click_url']
+                click_url =  item['item_url']
                 coupon_share_url = click_url
                 title = item['title']
                 item_id = item['item_id']
-                pict_url = "https:" + str(item['pict_url'])
+                pict_url =  item['pict_url'] 
                 filename = save_pic(pict_url, item_id, folder)
                 zk_final_price = item['zk_final_price']
+                reserve_price = item['reserve_price']
                 text = f'''{tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)}'''
             item_info = {
-        	'price':zk_final_price,'lowest_price':'',
+        	'price':reserve_price,'lowest_price':zk_final_price,
         	'duanzhi':coupon_share_url,'short_desc':text, 
         	'imageUrl':pict_url, 'sku_name':title}
             info.append(item_info)
