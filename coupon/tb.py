@@ -109,5 +109,8 @@ def tb_search_goods( material_id: str, app_key, app_secret, adzone_id, page_no, 
         #tb_share_text(material_id, app_key, app_secret, adzone_id, page_no, page_size)
     return info
 
+def get_category_info(app_key, app_secret,):
+    
+
 if __name__ == '__main__':
     print(f'''tb function''')

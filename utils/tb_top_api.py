@@ -185,3 +185,30 @@ class TbApiClient(object):
         res = urllib.request.urlopen(url).read()
         search_goods = json.loads(res)['tbk_dg_material_optional_response']['result_list']['map_data']
         return search_goods
+
+
+    def taobao_category(self, parent_cid):
+        '''
+
+        '''
+
+        postparm = {
+
+                    'method': 'aliexpress.social.discategory.get'
+                    }
+        # 公共参数，一般不需要修改
+        paramArr = {'app_key': self.app_key,
+                    'v': '2.0',
+                    'sign_method': 'md5',
+                    'format': 'json',
+                    'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
+                    }
+
+        paramArr = {**paramArr, **postparm}
+        sign = self.createSign(paramArr)
+        strParam = self.createStrParam(paramArr)
+        strParam += 'sign=' + sign
+        url = TB_API_ROOT + strParam
+        res = urllib.request.urlopen(url).read()
+        search_goods = json.loads(res)['aliexpress_social_discategory_get_response']['result']['results']
+        return search_goods
