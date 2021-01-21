@@ -183,6 +183,7 @@ class TbApiClient(object):
         strParam += 'sign=' + sign
         url = TB_API_ROOT + strParam
         res = urllib.request.urlopen(url).read()
+        print(res)
         search_goods = json.loads(res)['tbk_dg_material_optional_response']['result_list']['map_data']
         return search_goods
 

@@ -7,6 +7,7 @@
 from utils import config
 from coupon.jd import jingfen_query
 from coupon.tb import tb_share_text
+from coupon.tb import  tb_search_goods
 from utils.type import isString
 
 conf = config.init()
@@ -44,6 +45,24 @@ def tb_job(page_no, page_size):
                 'app_key': app_key, 'app_secret': app_secret, 'adzone_id': adzone_id,'page_no':page_no, 'page_size': page_size}
     tb_share_text(**kwargs)
 
+
+def tb_search_job(page_no, page_size):
+    conf = config.get_yaml()
+    conf = conf.get('taobao')
+    if not conf.get('is_open'):
+        return
+    if conf.get('app_key') =='' or conf.get('app_secret') =='' or conf.get('adzone_id') =='' :
+        return
+    
+    group_material_id = conf.get('group_material_id')
+    app_key = conf.get('app_key')
+    app_secret = conf.get('app_secret')
+    adzone_id = conf.get('adzone_id')
+    kwargs={'material_id': '',
+                'app_key': app_key, 'app_secret': app_secret, 'adzone_id': adzone_id,'page_no':page_no, 'page_size': page_size,
+                 'goods_sort':'', 'goods_platform':'', 'q':'内衣'}
+    info = tb_search_goods(**kwargs)
+
 def run(goods_type):
     if not conf:  # 如果 conf，表示配置文件出错。
         print('程序中止...')
@@ -54,4 +73,4 @@ def run(goods_type):
     return 'ok'
 
 if __name__ == '__main__':
-    tb_job(1, 1)
+    print(tb_search_job(1, 1))
